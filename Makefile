@@ -1,9 +1,10 @@
+deploy: PLAYBOOK := site.yml
 deploy: venv
-	echo Running ansible-playbook with production inventory..
+	echo Running $(PLAYBOOK) with production inventory..
 	./venv/bin/ansible-playbook \
     -i hosts/production --ask-vault-pass --ask-become-pass \
      $(if $(tags),--tags='$(tags)',) \
-     site.yml
+     $(PLAYBOOK)
 
 venv:
 	python -m venv venv

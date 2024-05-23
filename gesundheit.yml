@@ -1,0 +1,49 @@
+---
+- name: Setup gesundheit
+  hosts: all
+  tags:
+    - setup
+    - gesundheit
+    - monitoring
+  become: true
+  roles:
+    - role: gesundheit
+      gesundheit_http_enabled: true
+      gesundheit_http_listen_ip: 127.0.0.1
+      gesundheit_http_listen_port: 9876
+      gesundheit_modules:
+        - filename: gotify
+          config:
+            Handler:
+              Module: "gotify"
+              Config:
+                Url: "{{ vault_gesundheit_gotify.url }}"
+                Token: "{{ vault_gesundheit_gotify.token }}"
+              Filter:
+                - Module: "result-change"
+        - filename: check-disk-space-root
+          config:
+            Check:
+              Module: "disk-space"
+              Description: "Check free space on root partition"
+              Interval: "30m"
+              Config:
+                MountPoint: "/"
+                MinAvailable: "1G"
+        - filename: check-memory
+          config:
+            Check:
+              Module: "memory"
+              Description: "Check available memory"
+              Interval: "5m"
+              Config:
+                MinAvailable: "500M"
+        - filename: check-reboot-required
+          config:
+            Check:
+              Module: "file-presence"
+              Description: "Check if reboot is required"
+              Interval: "1h"
+              Config:
+                Path: "/run/reboot-required"
+                Present: false
