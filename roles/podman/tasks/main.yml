@@ -1,0 +1,11 @@
+---
+- name: Install Podman
+  ansible.builtin.package:
+    name: "podman"
+    state: present
+
+- name: Ensure Podman is started and enabled at boot
+  ansible.builtin.service:
+    name: podman
+    state: started
+    enabled: true
