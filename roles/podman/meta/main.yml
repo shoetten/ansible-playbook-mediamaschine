@@ -1,0 +1,13 @@
+---
+dependencies:
+  - role: systemli.apt_repositories
+    vars:
+      apt_repositories:
+        - filename: deb.debian.org-testing
+          url: "http://deb.debian.org/debian"
+          suites: testing
+          key_path: debian-archive-key-12.asc
+          packages:
+            - podman
+            - crun
+            - passt
