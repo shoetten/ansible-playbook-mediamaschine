@@ -13,4 +13,5 @@
       system_admin_users: "{{ vault_admin_users }}"
 
 - name: Gesundheit
-  ansible.builtin.import_playbook: gesundheit.yml
+  ansible.builtin.import_playbook: gesundheit.playbook.yml
+
