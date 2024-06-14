@@ -1,0 +1,23 @@
+---
+_ente_db:
+  host: "{{ ente_db_host }}"
+  port: "{{ ente_db_port }}"
+  name: "{{ ente_db_name }}"
+  user: "{{ vault_ente_db_user }}"
+  password: "{{ vault_ente_db_pass }}"
+
+_ente_s3:
+  key: "{{ vault_ente_s3_key }}"
+  secret: "{{ vault_ente_s3_secret }}"
+  endpoint: "{{ vault_ente_s3_endpoint }}"
+  bucket: "{{ ente_s3_bucket }}"
+  region: "{{ ente_s3_region }}"
+
+_ente_smtp:
+  host: "{{ ente_smtp_host }}"
+  port: "{{ ente_smtp_port }}"
+  username: "{{ vault_ente_smtp_username }}"
+  password: "{{ vault_ente_smtp_password }}"
+  # The email address from which to send the email. Set this to an email
+  # address whose credentials you're providing.
+  email: "{{ ente_smtp_email }}"

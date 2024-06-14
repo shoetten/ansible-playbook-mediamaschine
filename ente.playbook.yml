@@ -1,0 +1,11 @@
+---
+- name: Setup ente, encrypted photo storage
+  hosts: all
+  tags:
+    - ente
+  become: true
+  roles:
+    - role: ente
+      ente_s3_bucket: "photomaschine9fmXwty"
+      ente_smtp_host: smtp.mailbox.org
+      ente_smtp_email: sender@hoetten.org

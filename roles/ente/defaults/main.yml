@@ -1,0 +1,12 @@
+---
+ente_museum_bind_ip: "127.0.0.1"
+ente_museum_port: 8080
+
+ente_db_host: systemd-podman-ente-postgres
+ente_db_port: 5432
+ente_db_name: ente
+ente_s3_region: "eu-central-2"
+
+ente_postgres_version: 16
+
+ente_smtp_port: 587

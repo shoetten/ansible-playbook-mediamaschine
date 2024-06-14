@@ -1,0 +1,28 @@
+[Unit]
+Description=Museum, Backend for ente.io
+Wants=podman-ente-postgres.service
+After=podman-ente-postgres.service
+
+[Container]
+Image=ghcr.io/ente-io/server
+AutoUpdate=registry
+
+Environment=ENTE_CREDENTIALS_FILE=/credentials.yaml
+Environment=GIN_MODE=release
+
+Volume=ente.custom-logs.volume:/var/logs
+Volume=./museum.yaml:/museum.yaml:ro
+Volume=./credentials.yaml:/credentials.yaml:ro
+Volume=./data:/data:ro
+
+PublishPort={{ ente_museum_bind_ip }}:{{ ente_museum_port }}:8080
+Network=ente.network
+
+[Service]
+Restart=always
+# Extend Timeout to allow time to pull the image
+TimeoutStartSec=600
+
+[Install]
+# Start by default on boot
+WantedBy=multi-user.target default.target

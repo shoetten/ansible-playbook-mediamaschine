@@ -11,7 +11,11 @@
       security_sudoers_passworded: "{{ vault_admin_users | map(attribute='name') | list }}"
     - role: system
       system_admin_users: "{{ vault_admin_users }}"
+    - role: podman
+      tags: [podman, docker]
 
 - name: Gesundheit
   ansible.builtin.import_playbook: gesundheit.playbook.yml
 
+- name: Ente
+  ansible.builtin.import_playbook: ente.playbook.yml

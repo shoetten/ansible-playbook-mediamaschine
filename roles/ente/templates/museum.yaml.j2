@@ -1,0 +1,19 @@
+# see https://github.com/ente-io/ente/blob/main/server/configurations/local.yaml
+# for config options
+
+key:
+  encryption: {{ vault_ente_key_encryption }}
+  hash: {{ vault_ente_key_hash }}
+
+jwt:
+  secret: {{ vault_ente_jwt_secret }}
+
+smtp: {{ _ente_smtp }}
+
+# Specify the base endpoints for various apps
+apps:
+    # Default is https://albums.ente.io
+    #
+    # If you're running a self hosted instance and wish to serve public links,
+    # set this to the URL where your albums web app is running.
+    public-albums:
