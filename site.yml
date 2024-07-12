@@ -1,4 +1,4 @@
-- name: Provision photomaschine
+- name: Provision mediamaschine
   hosts: all
   become: true
   roles:

@@ -1,4 +1,4 @@
-# ansible-playbook-photomaschine
+# ansible-playbook-mediamaschine
 
 Self-hosted [ente.io](https://ente.io/) encrypted photo storage.
 
