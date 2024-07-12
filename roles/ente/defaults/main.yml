@@ -1,4 +1,5 @@
 ---
+# museum
 ente_museum_bind_ip: "127.0.0.1"
 ente_museum_port: 8080
 
@@ -10,3 +11,10 @@ ente_s3_region: "eu-central-2"
 ente_postgres_version: 16
 
 ente_smtp_port: 587
+
+# web
+ente_web_bind_ip: "127.0.0.1"
+ente_web_port: 8081
+ente_web_albums_port: 8082
+
+ente_web_endpoint: "{{ ente_museum_domain }}"

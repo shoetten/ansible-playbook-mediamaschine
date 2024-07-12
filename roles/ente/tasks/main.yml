@@ -1,2 +1,3 @@
 ---
 - ansible.builtin.import_tasks: museum.yml
+- ansible.builtin.import_tasks: web.yml

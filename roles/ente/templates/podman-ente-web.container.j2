@@ -1,0 +1,24 @@
+[Unit]
+Description=Ente web
+Wants=podman-ente-museum.service
+After=podman-ente-museum.service
+
+[Container]
+Image=ghcr.io/shoetten/ente-web:edge
+AutoUpdate=registry
+
+Environment=ENDPOINT={{ ente_web_endpoint }}
+Environment=ALBUMS_ENDPOINT={{ ente_web_albums_endpoint }}
+
+PublishPort={{ ente_web_bind_ip }}:{{ ente_web_port }}:80
+PublishPort={{ ente_web_bind_ip }}:{{ ente_web_albums_port }}:80
+Network=ente.network
+
+[Service]
+Restart=always
+# Extend Timeout to allow time to pull the image
+TimeoutStartSec=600
+
+[Install]
+# Start by default on boot
+WantedBy=multi-user.target default.target

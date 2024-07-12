@@ -1,0 +1,23 @@
+---
+- name: Ensure config dir exists
+  ansible.builtin.file:
+    path: "/etc/containers/systemd/ente"
+    state: directory
+    mode: "0750"
+
+- name: Add ente-web config files
+  ansible.builtin.template:
+    src: "{{ item }}.j2"
+    dest: "/etc/containers/systemd/ente/{{ item }}"
+    mode: "0640"
+  with_items:
+    - podman-ente-web.container
+
+- name: Reload systemd units
+  ansible.builtin.systemd:
+    daemon_reload: true
+
+- name: Restart ente web
+  ansible.builtin.systemd_service:
+    name: podman-ente-web.service
+    state: restarted

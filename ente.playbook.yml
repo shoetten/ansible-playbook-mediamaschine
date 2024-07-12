@@ -9,3 +9,6 @@
       ente_s3_bucket: "photomaschine9fmXwty"
       ente_smtp_host: smtp.mailbox.org
       ente_smtp_email: sender@hoetten.org
+      ente_museum_domain: https://ente.hoetten.org
+      ente_web_domain: https://photos.hoetten.org
+      ente_web_albums_endpoint: https://albums.hoetten.org
