@@ -10,5 +10,7 @@
       ente_smtp_host: smtp.mailbox.org
       ente_smtp_email: sender@hoetten.org
       ente_museum_domain: https://ente.hoetten.org
+      ente_museum_bind_ip: "{{ ansible_default_ipv4.address }}"
       ente_web_domain: https://photos.hoetten.org
       ente_web_albums_endpoint: https://albums.hoetten.org
+      ente_web_bind_ip: "{{ ansible_default_ipv4.address }}"
