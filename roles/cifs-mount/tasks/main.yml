@@ -1,0 +1,32 @@
+---
+- name: Make sure cifs-utils is installed
+  ansible.builtin.apt:
+    name: "cifs-utils"
+    state: present
+
+- name: Create cifs config directory
+  ansible.builtin.file:
+    path: "/etc/cifs"
+    state: directory
+    mode: "0700"
+
+- name: Create mount credentials file
+  ansible.builtin.template:
+    src: "mount-credentials.j2"
+    dest: "/etc/cifs/{{ cifs_mount_name }}"
+    mode: "0600"
+
+# mount cifs share
+# see hetzner docs:
+# //<Benutzername>.your-storagebox.de/backup /mnt/backup-server       cifs
+# iocharset=utf8,rw,credentials=/etc/backup-credentials.txt,uid=<Systemkonto>,gid=<Systemgruppe>,file_mode=0660,dir_mode=0770 0       0
+# make sure to include the "seal" mount option in order to encrypt the connection
+- name: Mount cifs share
+  ansible.posix.mount:
+    path: "{{ cifs_mount_path }}"
+    src: "//{{ cifs_mount_credentials.user }}.{{ cifs_mount_host }}"
+    fstype: cifs
+    opts: "iocharset=utf8,rw,credentials=/etc/cifs/{{ cifs_mount_name }},uid={{ cifs_mount_user }},gid={{ cifs_mount_group }},file_mode=0660,dir_mode=0770,seal"
+    dump: 0
+    passno: 0
+    state: mounted

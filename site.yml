@@ -19,3 +19,6 @@
 
 - name: Ente
   ansible.builtin.import_playbook: ente.playbook.yml
+
+- name: Audiobookshelf
+  ansible.builtin.import_playbook: audiobookshelf.playbook.yml

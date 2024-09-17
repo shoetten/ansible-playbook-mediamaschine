@@ -1,0 +1,3 @@
+---
+cifs_mount_user: "root"
+cifs_mount_group: "root"

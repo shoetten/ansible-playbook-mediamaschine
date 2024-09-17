@@ -1,0 +1,5 @@
+audiobookshelf_dir: "/etc/containers/systemd/audiobookshelf"
+audiobookshelf_audiobooks_dir: "/audiobooks"
+
+audiobookshelf_bind_ip: "127.0.0.1"
+audiobookshelf_port: 8080

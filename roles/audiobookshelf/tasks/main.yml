@@ -1,0 +1,30 @@
+---
+- name: Ensure config dir exists
+  ansible.builtin.file:
+    path: "{{ audiobookshelf_dir }}"
+    state: directory
+    mode: "0750"
+
+- name: Add audiobookshelf podman config files
+  ansible.builtin.template:
+    src: "{{ item }}.j2"
+    dest: "{{ audiobookshelf_dir }}/{{ item }}"
+    mode: "0640"
+  with_items:
+    - podman-audiobookshelf.container
+  notify: "Restart audiobookshelf"
+
+- name: Create volume directory for data
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0750"
+    recurse: true
+  with_items:
+    - "{{ audiobookshelf_dir }}/config"
+    - "{{ audiobookshelf_dir }}/metadata"
+  notify: "Restart audiobookshelf"
+
+- name: Reload systemd units
+  ansible.builtin.systemd:
+    daemon_reload: true

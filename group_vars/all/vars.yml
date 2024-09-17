@@ -3,3 +3,4 @@
 ente_museum_port: 8080
 ente_web_port: 8081
 ente_web_albums_port: 8082
+audiobookshelf_port: 8085

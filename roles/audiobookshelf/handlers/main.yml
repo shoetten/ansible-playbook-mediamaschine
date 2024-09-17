@@ -1,0 +1,5 @@
+---
+- name: "Restart audiobookshelf"
+  ansible.builtin.systemd_service:
+    name: podman-audiobookshelf.service
+    state: restarted

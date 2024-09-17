@@ -1,0 +1,21 @@
+[Unit]
+Description=Audiobookshelf
+
+[Container]
+Image=ghcr.io/advplyr/audiobookshelf:latest
+AutoUpdate=registry
+
+Volume={{ audiobookshelf_dir }}/config:/config
+Volume={{ audiobookshelf_dir }}/metadata:/metadata
+Volume={{ audiobookshelf_audiobooks_dir }}:/audiobooks
+
+PublishPort={{ audiobookshelf_bind_ip }}:{{ audiobookshelf_port }}:80
+
+[Service]
+Restart=always
+# Extend Timeout to allow time to pull the image
+TimeoutStartSec=600
+
+[Install]
+# Start by default on boot
+WantedBy=multi-user.target default.target
