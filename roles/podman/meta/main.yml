@@ -1,5 +1,7 @@
 ---
 dependencies:
+  # get podman from debian testing, since the version in
+  # debian 12 bookworm does not support Quadlets, yet
   - role: systemli.apt_repositories
     vars:
       apt_repositories:
