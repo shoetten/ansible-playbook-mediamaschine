@@ -1,17 +1,17 @@
 [Unit]
-Description=Ente web
+Description=Ente photos web
 Wants=podman-ente-museum.service
 After=podman-ente-museum.service
 
 [Container]
-Image=ghcr.io/shoetten/ente-web:edge
+Image=ghcr.io/ente-io/web:latest
 AutoUpdate=registry
 
-Environment=ENDPOINT={{ ente_web_endpoint }}
-Environment=ALBUMS_ENDPOINT={{ ente_web_albums_endpoint }}
+Environment=ENTE_API_ORIGIN={{ ente_web_endpoint }}
+Environment=ENTE_ALBUMS_ORIGIN={{ ente_web_albums_endpoint }}
 
-PublishPort={{ ente_web_bind_ip }}:{{ ente_web_port }}:80
-PublishPort={{ ente_web_bind_ip }}:{{ ente_web_albums_port }}:80
+PublishPort={{ ente_web_bind_ip }}:{{ ente_web_port }}:3000
+PublishPort={{ ente_web_bind_ip }}:{{ ente_web_albums_port }}:3002
 Network=ente.network
 
 [Service]
