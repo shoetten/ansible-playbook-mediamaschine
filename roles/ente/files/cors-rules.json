@@ -1,21 +1,8 @@
 [
   {
     "corsRuleName": "entephotos",
-    "allowedOrigins": [
-      "*"
-    ],
-    "allowedHeaders": [
-      "range",
-      "authorization",
-      "Referer",
-      "Content-Type",
-      "X-Bz-File-Name",
-      "X-Bz-Part-Number",
-      "X-Bz-Content-Sha1",
-      "X-Auth-Token",
-      "X-Client-Package",
-      "X-Auth-Access-Token"
-    ],
+    "allowedOrigins": ["*"],
+    "allowedHeaders": ["*"],
     "allowedOperations": [
       "b2_download_file_by_id",
       "b2_download_file_by_name",
