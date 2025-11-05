@@ -19,6 +19,7 @@
       - net-tools
       - python3
       - tldr
+      - tmux
       - vim
       - zsh
       - zsh-autosuggestions
