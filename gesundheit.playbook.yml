@@ -47,3 +47,30 @@
               Config:
                 Path: "/run/reboot-required"
                 Present: false
+        - filename: check-restic-ente-museum-data-health
+          config:
+            Check:
+              Module: "file-mtime"
+              Description: "Check restic backup health of ente data"
+              Interval: "1h"
+              Config:
+                Path: "/var/lib/restic/restic-ente-museum-data.stamp"
+                MaxAge: "26h"
+        - filename: check-restic-ente-database-health
+          config:
+            Check:
+              Module: "file-mtime"
+              Description: "Check restic backup health of ente postgres database"
+              Interval: "1h"
+              Config:
+                Path: "/var/lib/restic/restic-ente-database.stamp"
+                MaxAge: "26h"
+        - filename: check-restic-audiobookshelf-data-health
+          config:
+            Check:
+              Module: "file-mtime"
+              Description: "Check restic backup health of audiobookshelf data"
+              Interval: "1h"
+              Config:
+                Path: "/var/lib/restic/restic-audiobookshelf-data.stamp"
+                MaxAge: "26h"

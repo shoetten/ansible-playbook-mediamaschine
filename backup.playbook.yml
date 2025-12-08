@@ -1,0 +1,76 @@
+---
+- name: Setup restic backups
+  hosts: all
+  tags:
+    - setup
+    - backup
+    - restic
+  become: true
+  tasks:
+    - name: add python3-paramiko dependency for ssh ansible module
+      ansible.builtin.package:
+        name: python3-paramiko
+        state: present
+    - name: copy ssh private key for storage box access
+      ansible.builtin.copy:
+        content: "{{ vault_restic_repository_location_ssh_private_key }}"
+        dest: /root/.ssh/backup_key
+        owner: root
+        group: root
+        mode: "0600"
+    - name: Configure storage box host in the ssh configuration
+      community.general.ssh_config:
+        host: "{{ vault_restic_repository_location_host }}"
+        identity_file: "/root/.ssh/backup_key"
+        ssh_config_file: "/root/.ssh/config"
+        identities_only: true
+        port: "23"
+        state: present
+  roles:
+    - role: restic
+      restic_no_log: false
+      restic_user: "root" # we need to run as root, so we can grab a sql dump from a podman container
+      restic_repos:
+        # rest:
+        #   location: rest:https://restic_rest_server.example.com:8000/restic-repo/
+        #   encrypted_password: securepassword1
+        sftp:
+          location: "sftp:{{ vault_restic_repository_location_user }}@{{ vault_restic_repository_location_host }}"
+          encrypted_password: "{{ vault_restic_repository_encrypted_password }}"
+      restic_backups:
+        ente-museum-data:
+          repo: sftp
+          src: /etc/containers/systemd/ente
+          scheduled: true
+          schedule_oncalendar: "*-*-* 01:00:00"
+          exclude:
+            exclude_caches: true
+          monitoring_call: "date --utc --iso-8601=s > /var/lib/restic/restic-ente-museum-data.stamp"
+          # set keep-within to guard against an attacker overwriting all "good" snapshots in append only mode
+          # see https://restic.readthedocs.io/en/stable/060_forget.html#security-considerations-in-append-only-mode for details
+          keep_within: "1m"
+          keep_weekly: 8
+        ente-database:
+          repo: sftp
+          stdin: true
+          stdin_cmd: "podman exec -it systemd-podman-ente-postgres pg_dump -U ente ente"
+          stdin_filename: ente_psql_dump.sql
+          scheduled: true
+          schedule_oncalendar: "*-*-* 01:30:00"
+          monitoring_call: "date --utc --iso-8601=s > /var/lib/restic/restic-ente-database.stamp"
+          # set keep-within to guard against an attacker overwriting all "good" snapshots in append only mode
+          # see https://restic.readthedocs.io/en/stable/060_forget.html#security-considerations-in-append-only-mode for details
+          keep_within: "1m"
+          keep_weekly: 8
+        audiobookshelf-data:
+          repo: sftp
+          src: "{{ audiobookshelf_dir }}"
+          scheduled: true
+          schedule_oncalendar: "*-*-* 02:00:00"
+          exclude:
+            exclude_caches: true
+          monitoring_call: "date --utc --iso-8601=s > /var/lib/restic/restic-audiobookshelf-data.stamp"
+          # set keep-within to guard against an attacker overwriting all "good" snapshots in append only mode
+          # see https://restic.readthedocs.io/en/stable/060_forget.html#security-considerations-in-append-only-mode for details
+          keep_within: "1m"
+          keep_weekly: 8
