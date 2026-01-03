@@ -7,8 +7,8 @@
   roles:
     - role: cifs-mount
       cifs_mount_name: "audiobookshelf"
-      cifs_mount_host: "{{ vault_cifs_mount_host }}"
-      cifs_mount_credentials: "{{ vault_cifs_mount_credentials }}"
+      cifs_mount_host: "{{ vault_audiobookshelf_cifs_mount_host }}"
+      cifs_mount_credentials: "{{ vault_audiobookshelf_cifs_mount_credentials }}"
     - role: audiobookshelf
       audiobookshelf_audiobooks_dir: "/mnt/audiobookshelf"
       audiobookshelf_bind_ip: "{{ ansible_default_ipv4.address }}"

@@ -24,7 +24,7 @@
 - name: Mount cifs share
   ansible.posix.mount:
     path: "{{ cifs_mount_path }}"
-    src: "//{{ cifs_mount_credentials.user }}.{{ cifs_mount_host }}"
+    src: "//{{ cifs_mount_host }}"
     fstype: cifs
     opts: "iocharset=utf8,rw,credentials=/etc/cifs/{{ cifs_mount_name }},uid={{ cifs_mount_user }},gid={{ cifs_mount_group }},file_mode=0660,dir_mode=0770,seal"
     dump: 0
