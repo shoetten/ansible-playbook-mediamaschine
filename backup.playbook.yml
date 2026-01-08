@@ -28,7 +28,6 @@
         state: present
   roles:
     - role: restic
-      restic_no_log: false
       restic_user: "root" # we need to run as root, so we can grab a sql dump from a podman container
       restic_repos:
         # rest:
@@ -58,6 +57,16 @@
           scheduled: true
           schedule_oncalendar: "*-*-* 01:30:00"
           monitoring_call: "date --utc --iso-8601=s > /var/lib/restic/restic-ente-database.stamp"
+          # set keep-within to guard against an attacker overwriting all "good" snapshots in append only mode
+          # see https://restic.readthedocs.io/en/stable/060_forget.html#security-considerations-in-append-only-mode for details
+          keep_within: "1m"
+          keep_weekly: 8
+        ente-database-raw:
+          repo: sftp
+          src: /var/lib/containers/storage/volumes/systemd-ente.postgres-data
+          scheduled: true
+          schedule_oncalendar: "*-*-* 01:40:00"
+          monitoring_call: "date --utc --iso-8601=s > /var/lib/restic/restic-ente-database-raw.stamp"
           # set keep-within to guard against an attacker overwriting all "good" snapshots in append only mode
           # see https://restic.readthedocs.io/en/stable/060_forget.html#security-considerations-in-append-only-mode for details
           keep_within: "1m"
