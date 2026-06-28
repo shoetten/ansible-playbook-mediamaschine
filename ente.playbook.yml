@@ -15,3 +15,4 @@
       ente_web_domain: https://photos.hoetten.org
       ente_web_albums_endpoint: https://albums.hoetten.org
       ente_web_bind_ip: "{{ ansible_default_ipv4.address }}"
+      ente_disable_registration: true

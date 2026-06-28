@@ -12,6 +12,8 @@ ente_postgres_version: 16
 
 ente_smtp_port: 587
 
+ente_disable_registration: false
+
 # web
 ente_web_bind_ip: "127.0.0.1"
 ente_web_port: 8081
