@@ -52,7 +52,7 @@
         ente-database:
           repo: sftp
           stdin: true
-          stdin_cmd: "podman exec -it systemd-podman-ente-postgres pg_dump -U ente ente"
+          stdin_cmd: "podman exec -i systemd-podman-ente-postgres pg_dump -U ente ente"
           stdin_filename: ente_psql_dump.sql
           scheduled: true
           schedule_oncalendar: "*-*-* 01:30:00"
