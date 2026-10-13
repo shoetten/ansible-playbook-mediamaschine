@@ -4,7 +4,7 @@ Wants=podman-ente-museum.service
 After=podman-ente-museum.service
 
 [Container]
-Image=ghcr.io/ente-io/web:latest
+Image=ghcr.io/ente/web:latest
 AutoUpdate=registry
 
 Environment=ENTE_API_ORIGIN={{ ente_web_endpoint }}
